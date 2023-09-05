@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="outputScreenWidth">375dp</dimen>
+    <dimen name="outputScreenHeight">250dp</dimen>
+    <dimen name="outputScreenFontSize">64sp</dimen>
+    <dimen name="buttonDimen">93.75dp</dimen>
+</resources>
