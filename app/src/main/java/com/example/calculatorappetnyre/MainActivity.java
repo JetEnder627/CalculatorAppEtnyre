@@ -14,8 +14,13 @@ public class MainActivity extends AppCompatActivity {
     private double num1 = 0;
     private double num2 = 0;
     private String operation = "addition";
-    private String answer = "___";
+    private String answerText = "___";
+    private double answer = 0;
     private boolean editingNum1 = true;
+    private boolean operationSelected = false;
+    private boolean num1IncludesDecimal = false;
+    private boolean num2IncludesDecimal = false;
+    private int decimalDigits = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,13 +33,21 @@ public class MainActivity extends AppCompatActivity {
         TextView outputTV = findViewById(R.id.outputScreen);
 
         if(num1 != 0){
-            num1Text = ((Double) num1).toString();
+            if(!num1IncludesDecimal){
+                num1Text = ((Integer) ((int) num1)).toString();
+            }else{
+                num1Text = ((Double) num1).toString();
+            }
         }else{
             num1Text = "___";
         }
 
         if(num2 != 0){
-            num2Text = ((Double) num2).toString();
+            if(!num2IncludesDecimal){
+                num2Text = ((Integer) ((int) num2)).toString();
+            }else{
+                num2Text = ((Double) num2).toString();
+            }
         }else{
             num2Text = "___";
         }
@@ -49,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
         }else if(operation.equals("division")){
             outputText += " / ";
         }
-        outputText += num2Text + " =\n" + answer;
+        outputText += num2Text + " =\n" + answerText;
 
         outputTV.setText(outputText);
     }
@@ -62,36 +75,39 @@ public class MainActivity extends AppCompatActivity {
             num = num2;
         }
 
+        double digit = 0;
+
         if(v.getId() == R.id.num1){
-            num *= 10;
-            num += 1;
+            digit = 1;
         }else if(v.getId() == R.id.num2){
-            num *= 10;
-            num += 2;
+            digit = 2;
         }else if(v.getId() == R.id.num3){
-            num *= 10;
-            num += 3;
+            digit = 3;
         }else if(v.getId() == R.id.num4){
-            num *= 10;
-            num += 4;
+            digit = 4;
         }else if(v.getId() == R.id.num5){
-            num *= 10;
-            num += 5;
+            digit = 5;
         }else if(v.getId() == R.id.num6){
-            num *= 10;
-            num += 6;
+            digit = 6;
         }else if(v.getId() == R.id.num7){
-            num *= 10;
-            num += 7;
+            digit = 7;
         }else if(v.getId() == R.id.num8){
-            num *= 10;
-            num += 8;
+            digit = 8;
         }else if(v.getId() == R.id.num9){
-            num *= 10;
-            num += 9;
+            digit = 9;
         }else if(v.getId() == R.id.num0){
+            digit = 0;
+        }
+
+        if((editingNum1 && !num1IncludesDecimal) || (!editingNum1 && !num2IncludesDecimal)){
             num *= 10;
-            num += 0;
+            num += digit;
+        }else{
+            for(int i = 0; i < decimalDigits; i++){
+                digit /= 10;
+            }
+            num += digit;
+            decimalDigits += 1;
         }
 
         if(editingNum1){
@@ -104,8 +120,63 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void selectOperation(View v){
-        if(v.getId() == R.id.divide){
-            operation = "division";
+        if(!operationSelected){
+            if(v.getId() == R.id.divide){
+                operation = "division";
+            }else if(v.getId() == R.id.multiply){
+                operation = "multiplication";
+            }else if(v.getId() == R.id.subtract){
+                operation = "subtraction";
+            }else if(v.getId() == R.id.add){
+                operation = "addition";
+            }
+            updateOutput();
+            operationSelected = true;
+            editingNum1 = false;
+            decimalDigits = 0;
         }
+    }
+
+    public void runOperation(View v){
+        if(operation.equals("division")){
+            answer = num1/num2;
+        }else if(operation.equals("multiplication")){
+            answer = num1*num2;
+        }else if(operation.equals("subtraction")){
+            answer = num1-num2;
+        }else if(operation.equals("addition")){
+            answer = num1+num2;
+        }
+
+        answerText = ((Double) answer).toString();
+        updateOutput();
+    }
+
+    public void addDecimal(View v){
+        if(editingNum1){
+            num1IncludesDecimal = true;
+        }else{
+            num2IncludesDecimal = true;
+        }
+        if(decimalDigits == 0){
+            decimalDigits = 1;
+        }
+    }
+
+    public void delete(View v){
+        if(editingNum1 && !num1IncludesDecimal){
+            num1 = (int) (num1/10);
+        }else if(editingNum1 && num1IncludesDecimal){
+            for(int i = 0; i < decimalDigits - 1; i++){
+                num1 *= 10;
+            }
+            num1 = (int) num1;
+            num1 = (double) num1;
+            for(int i = 0; i < decimalDigits - 1; i++){
+                num1 /= 10;
+            }
+        }
+
+        updateOutput();
     }
 }
