@@ -2,6 +2,7 @@
 <resources>
     <dimen name="outputScreenWidth">375dp</dimen>
     <dimen name="outputScreenHeight">250dp</dimen>
-    <dimen name="outputScreenFontSize">64sp</dimen>
-    <dimen name="buttonDimen">80dp</dimen>
+    <dimen name="outputScreenFontSize">50sp</dimen>
+    <dimen name="buttonDimen">93.75dp</dimen>
+    <dimen name="borderWidth">100px</dimen>
 </resources>
