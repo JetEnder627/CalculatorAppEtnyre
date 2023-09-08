@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">CalculatorAppEtnyre</string>
+    <string name="app_name">My Calculator</string>
+    <string name="clear_button_text">Clear</string>
+    <string name="trig_button_text">Trig</string>
 </resources>

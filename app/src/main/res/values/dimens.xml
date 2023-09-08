@@ -6,4 +6,6 @@
     <dimen name="buttonDimen">93.75dp</dimen>
     <dimen name="topButtonHeight">60dp</dimen>
     <dimen name="borderWidth">100px</dimen>
+    <dimen name="topButtonFontSize">30sp</dimen>
+    <dimen name="backButtonHeight">40dp</dimen>
 </resources>

@@ -2,6 +2,7 @@ package com.example.calculatorappetnyre;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -13,7 +14,7 @@ public class MainActivity extends AppCompatActivity {
     private String num2Text = "___";
     private double num1 = 0;
     private double num2 = 0;
-    private String operation = "addition";
+    private String operation = "none";
     private String answerText = "___";
     private double answer = 0;
     private boolean editingNum1 = true;
@@ -61,6 +62,10 @@ public class MainActivity extends AppCompatActivity {
             outputText += " * ";
         }else if(operation.equals("division")){
             outputText += " / ";
+        }else if(operation.equals("exponent")){
+            outputText += " ^ ";
+        }else{
+            outputText += " _ ";
         }
         outputText += num2Text + " =\n" + answerText;
 
@@ -129,6 +134,8 @@ public class MainActivity extends AppCompatActivity {
                 operation = "subtraction";
             }else if(v.getId() == R.id.add){
                 operation = "addition";
+            }else if(v.getId() == R.id.exponent){
+                operation = "exponent";
             }
             updateOutput();
             operationSelected = true;
@@ -146,6 +153,8 @@ public class MainActivity extends AppCompatActivity {
             answer = num1-num2;
         }else if(operation.equals("addition")){
             answer = num1+num2;
+        }else if(operation.equals("exponent")){
+            answer = Math.pow(num1,num2);
         }
 
         answerText = ((Double) answer).toString();
@@ -167,16 +176,39 @@ public class MainActivity extends AppCompatActivity {
         if(editingNum1 && !num1IncludesDecimal){
             num1 = (int) (num1/10);
         }else if(editingNum1 && num1IncludesDecimal){
-            for(int i = 0; i < decimalDigits - 1; i++){
+            for(int i = 0; i < decimalDigits; i++){
                 num1 *= 10;
             }
-            num1 = (int) num1;
+            num1 = (int) num1/10;
             num1 = (double) num1;
-            for(int i = 0; i < decimalDigits - 1; i++){
+            decimalDigits--;
+            for(int i = 0; i < decimalDigits; i++){
                 num1 /= 10;
             }
         }
 
         updateOutput();
+    }
+
+    public void clear(View v){
+        num1Text = "___";
+        num2Text = "___";
+        num1 = 0;
+        num2 = 0;
+        decimalDigits = 0;
+        operation = "none";
+        answerText = "___";
+        answer = 0;
+        editingNum1 = true;
+        operationSelected = false;
+        num1IncludesDecimal = false;
+        num2IncludesDecimal = false;
+        updateOutput();
+    }
+
+    public void trigScreen(View v){
+        Intent intent = new Intent(this, TrigActivity.class);
+        startActivity(intent);
+        Log.i("joey", "test");
     }
 }
