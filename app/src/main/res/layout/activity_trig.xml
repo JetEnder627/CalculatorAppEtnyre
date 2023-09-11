@@ -7,6 +7,71 @@
     android:background="#00D1FF">
 
     <Button
+        android:id="@+id/inverse"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:width="@dimen/buttonDimen"
+        android:height="@dimen/buttonDimen"
+        android:background="@drawable/default_button"
+        android:gravity="center"
+        android:onClick="invertOperation"
+        android:padding="0dp"
+        android:paddingTop="0dp"
+        android:text="arc"
+        android:textSize="@dimen/outputScreenFontSize"
+        app:layout_constraintStart_toEndOf="@+id/num9"
+        app:layout_constraintTop_toBottomOf="@+id/tangent" />
+
+    <Button
+        android:id="@+id/tangent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:width="@dimen/buttonDimen"
+        android:height="@dimen/buttonDimen"
+        android:background="@drawable/default_button"
+        android:gravity="center"
+        android:onClick="selectOperation"
+        android:padding="0dp"
+        android:paddingTop="0dp"
+        android:text="tan"
+        android:textSize="@dimen/outputScreenFontSize"
+        app:layout_constraintStart_toEndOf="@+id/num9"
+        app:layout_constraintTop_toBottomOf="@+id/sine" />
+
+    <Button
+        android:id="@+id/sine"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:width="@dimen/buttonDimen"
+        android:height="@dimen/buttonDimen"
+        android:background="@drawable/default_button"
+        android:gravity="center"
+        android:onClick="selectOperation"
+        android:padding="0dp"
+        android:paddingTop="0dp"
+        android:text="sin"
+        android:textSize="@dimen/outputScreenFontSize"
+        app:layout_constraintStart_toEndOf="@+id/num9"
+        app:layout_constraintTop_toBottomOf="@+id/cosine" />
+
+    <Button
+        android:id="@+id/cosine"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:width="@dimen/buttonDimen"
+        android:height="@dimen/buttonDimen"
+        android:background="@drawable/default_button"
+        android:gravity="center"
+        android:onClick="selectOperation"
+        android:padding="0dp"
+        android:paddingTop="0dp"
+        android:text="cos"
+        android:textSize="@dimen/outputScreenFontSize"
+        app:layout_constraintStart_toEndOf="@+id/num9"
+        app:layout_constraintTop_toBottomOf="@+id/trigOutputScreen" />
+
+    <Button
         android:id="@+id/equals"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -229,6 +294,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/back_button"
         android:text="Back"
+        android:onClick = "goBack"
         app:layout_constraintBottom_toTopOf="@+id/trigOutputScreen"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.056"

@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
     public void updateOutput(){
         TextView outputTV = findViewById(R.id.outputScreen);
 
-        if(num1 != 0){
+        /*if(num1 != 0){
             if(!num1IncludesDecimal){
                 num1Text = ((Integer) ((int) num1)).toString();
             }else{
@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }else{
             num2Text = "___";
-        }
+        }*/
 
         String outputText = num1Text;
         if(operation.equals("addition")){
@@ -102,6 +102,16 @@ public class MainActivity extends AppCompatActivity {
             digit = 9;
         }else if(v.getId() == R.id.num0){
             digit = 0;
+        }
+
+        if(num1Text.equals("___") && editingNum1){
+            num1Text = ((Integer) (int) digit).toString();
+        }else if(!num1Text.equals("___") && editingNum1){
+            num1Text += (int) digit;
+        }else if(num2Text.equals("___") && !editingNum1){
+            num2Text = ((Integer) (int) digit).toString();
+        }else if(!num2Text.equals("___") && !editingNum1){
+            num2Text += (int) digit;
         }
 
         if((editingNum1 && !num1IncludesDecimal) || (!editingNum1 && !num2IncludesDecimal)){
@@ -156,6 +166,7 @@ public class MainActivity extends AppCompatActivity {
         }else if(operation.equals("exponent")){
             answer = Math.pow(num1,num2);
         }
+        Log.i("joey", ((Double) answer).toString());
 
         answerText = ((Double) answer).toString();
         updateOutput();
@@ -164,12 +175,15 @@ public class MainActivity extends AppCompatActivity {
     public void addDecimal(View v){
         if(editingNum1){
             num1IncludesDecimal = true;
+            num1Text += ".";
         }else{
             num2IncludesDecimal = true;
+            num2Text += ".";
         }
         if(decimalDigits == 0){
             decimalDigits = 1;
         }
+        updateOutput();
     }
 
     public void delete(View v){
@@ -209,6 +223,5 @@ public class MainActivity extends AppCompatActivity {
     public void trigScreen(View v){
         Intent intent = new Intent(this, TrigActivity.class);
         startActivity(intent);
-        Log.i("joey", "test");
     }
 }
